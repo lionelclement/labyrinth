@@ -2,15 +2,15 @@ package fr.ubordeaux.ao.labyrinth.controller;
 
 import java.io.FileNotFoundException;
 
-import fr.ubordeaux.ao.labyrinth.model.MExit;
-import fr.ubordeaux.ao.labyrinth.view.VExit;
+import fr.ubordeaux.ao.labyrinth.model.MDoor;
+import fr.ubordeaux.ao.labyrinth.view.VDoor;
 
 public class Door extends Sprite {
 
 	public Door() throws FileNotFoundException{
 		super();
-		model = new MExit();
-		view = new VExit();
+		model = new MDoor();
+		view = new VDoor();
 	}
 
 }

@@ -11,7 +11,7 @@ import fr.ubordeaux.ao.labyrinth.model.MEdge.Type;
 
 public class MLabyrinth {
 
-	public static final int SPAN_DETECTION = 5000;
+	public static final int SPAN_DETECTION = 1000;
 	// distance à partir de laquelle un méchant détecte
 	private int width, height;
 
@@ -97,9 +97,9 @@ public class MLabyrinth {
 			for (Directions dir : Directions.values()) {
 				if (this.isOpened(actual, dir)){
 					MVertex next = graph.getVertexByDir(actual, dir);
-					if (next.getNbr()==0){
-						next.setNbr(actual.getNbr()+1);
-						if (next!=source && (next.getNbr() < SPAN_DETECTION))
+					if (next.getNbr() == 0){
+						next.setNbr(actual.getNbr() + 1);
+						if (next.getNbr() < SPAN_DETECTION)
 							fifo.add(next);
 					}
 				}	

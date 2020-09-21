@@ -1,25 +1,9 @@
 package fr.ubordeaux.ao.labyrinth.view;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import fr.ubordeaux.ao.labyrinth.controller.Door;
 import fr.ubordeaux.ao.labyrinth.controller.ISprite;
 import fr.ubordeaux.ao.labyrinth.controller.Sprite;
 import fr.ubordeaux.ao.labyrinth.model.MEdge;
@@ -43,7 +27,7 @@ public class VLabyrinth {
 	static final int WALL = 2; // thickness of the walls (in units)
 	static final int CELL = 9; // size of the cells (in units)
 	public static final Paint SCENE_COLOR = Color.WHITE;
-	public static final Paint OPENED_DOOR_COLOR = Color.WHITE;
+	public static final Paint OPENED_DOOR_COLOR = Color.LIGHTGREEN;
 	public static final Paint CLOSED_DOOR_COLOR = Color.RED;
 	public static final Paint WALL_COLOR = Color.BURLYWOOD;
 	public Scene scene;
@@ -57,7 +41,6 @@ public class VLabyrinth {
 		this.walls = new ArrayList<Rectangle>();
 		this.width = width;
 		this.height = height;
-		InputStream inputStream;
 	}
 
 	public void start(Stage stage) {
@@ -114,7 +97,6 @@ public class VLabyrinth {
 		} else if (xs == xt) {
 			x = (WALL + xs * (WALL + CELL)) * SPAN;
 			y = ((WALL + CELL) + (WALL + CELL) * ((int) (ys + yt) / 2)) * SPAN;
-			;
 			xspan = CELL * SPAN;
 			yspan = WALL * SPAN;
 			square = new Rectangle(x, y, xspan, yspan);
@@ -124,35 +106,39 @@ public class VLabyrinth {
 		walls.add(square);
 	}
 
-	public void drawPath(MGraph path) {
-		for (MEdge edge : path.edgeSet()) {
-			Paint color = Color.BLACK;
-			;
-			switch (edge.getType()) {
-			case OPENED_DOOR:
-				color = OPENED_DOOR_COLOR;
-				break;
-			case CLOSED_DOOR:
-				color = CLOSED_DOOR_COLOR;
-				break;
-			case CORRIDOR:
-				color = Color.GREEN;
-				break;
-			}
-			Line line = new Line((WALL + edge.getSource().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
-					(WALL + edge.getSource().getY() * (WALL + CELL) + CELL * 0.5) * SPAN,
-					(WALL + edge.getTarget().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
-					(WALL + edge.getTarget().getY() * (WALL + CELL) + CELL * 0.5) * SPAN);
-			line.setStroke(color);
-			pane.getChildren().add(line);
-			Circle circle = new Circle((WALL + edge.getSource().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
-					(WALL + edge.getSource().getY() * (WALL + CELL) + CELL * 0.5) * SPAN, 4);
-			circle.setFill(Color.GREEN);
-			pane.getChildren().add(circle);
-			circle = new Circle((WALL + edge.getTarget().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
-					(WALL + edge.getTarget().getY() * (WALL + CELL) + CELL * 0.5) * SPAN, 4);
-			circle.setFill(Color.GREEN);
-			pane.getChildren().add(circle);
+	public void drawPathEdge(MEdge edge) {
+		Paint color = Color.BLACK;
+		switch (edge.getType()) {
+		case OPENED_DOOR:
+			color = OPENED_DOOR_COLOR;
+			break;
+		case CLOSED_DOOR:
+			color = CLOSED_DOOR_COLOR;
+			break;
+		case CORRIDOR:
+			color = Color.GREEN;
+			break;
+		}
+		Line line = new Line((WALL + edge.getSource().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
+				(WALL + edge.getSource().getY() * (WALL + CELL) + CELL * 0.5) * SPAN,
+				(WALL + edge.getTarget().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
+				(WALL + edge.getTarget().getY() * (WALL + CELL) + CELL * 0.5) * SPAN);
+		line.setStroke(color);
+		pane.getChildren().add(line);
+		Circle circle = new Circle((WALL + edge.getSource().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
+				(WALL + edge.getSource().getY() * (WALL + CELL) + CELL * 0.5) * SPAN, 4);
+		circle.setFill(Color.GREEN);
+		pane.getChildren().add(circle);
+		circle = new Circle((WALL + edge.getTarget().getX() * (WALL + CELL) + CELL * 0.5) * SPAN,
+				(WALL + edge.getTarget().getY() * (WALL + CELL) + CELL * 0.5) * SPAN, 4);
+		circle.setFill(Color.GREEN);
+		pane.getChildren().add(circle);
+	}
+
+	public void drawPath(MGraph graph) {
+		for (MEdge edge : graph.edgeSet()) {
+			drawPathEdge(edge);
+			drawVertex(edge.getSource());
 		}
 	}
 
@@ -161,7 +147,6 @@ public class VLabyrinth {
 			this.pane.getChildren().remove(vertex.getText());
 		Text text = new Text();
 		vertex.setText(text);
-
 		text.setX((WALL + vertex.getX() * (WALL + CELL) + CELL * 0.5) * SPAN);
 		text.setY((WALL + vertex.getY() * (WALL + CELL) + CELL * 0.5) * SPAN);
 		text.setText(String.valueOf(vertex.getNbr()));

@@ -12,7 +12,6 @@ public class BadBoy extends Sprite {
 		try {
 			view = new VBadBoy();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

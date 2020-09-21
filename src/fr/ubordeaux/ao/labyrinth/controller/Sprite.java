@@ -1,5 +1,6 @@
 package fr.ubordeaux.ao.labyrinth.controller;
 
+import fr.ubordeaux.ao.labyrinth.model.MEdge;
 import fr.ubordeaux.ao.labyrinth.model.MGraph;
 import fr.ubordeaux.ao.labyrinth.model.MISprite;
 import fr.ubordeaux.ao.labyrinth.model.MLabyrinth;
@@ -13,45 +14,53 @@ public  class Sprite implements ISprite {
 	protected VISprite view;
 	protected MISprite model;
 
-	private MVertex getVertex(MGraph path){
+	protected MVertex getVertex(MGraph path){
 		return path.getVertexByXY(model.getX(), model.getY());
 	}
 
-	/*private MVertex getVertex(MGraph graph, int x, int y) {
-		return graph.getVertexByXY(x, y);
-	}*/
-
 	@Override
-	public void moveEast(Labyrinth labyrinth) {
+	public void moveEast(Labyrinth labyrinth, boolean closeAfter) {
 		MVertex vertex = getVertex(labyrinth.getGraph());
 		if (labyrinth.isOpened(vertex, MLabyrinth.Directions.EAST)){
+			if (closeAfter && labyrinth.isOpenedDoor(vertex, MLabyrinth.Directions.EAST)) {
+				labyrinth.closeDoor(labyrinth.getEdge(vertex, MLabyrinth.Directions.EAST));
+			}
 			model.setX(model.getX()+1);
 			view.updateUI(model);
 		}
 	}
 
 	@Override
-	public void moveWest(Labyrinth labyrinth) {
+	public void moveWest(Labyrinth labyrinth, boolean closeAfter) {
 		MVertex vertex = getVertex(labyrinth.getGraph());
 		if (labyrinth.isOpened(vertex, MLabyrinth.Directions.WEST)){
+			if (closeAfter && labyrinth.isOpenedDoor(vertex, MLabyrinth.Directions.WEST)) {
+				labyrinth.closeDoor(labyrinth.getEdge(vertex, MLabyrinth.Directions.WEST));
+			}
 			model.setX(model.getX()-1);
 			view.updateUI(model);
 		}
 	}
 
 	@Override
-	public void moveNorth(Labyrinth labyrinth) {
+	public void moveNorth(Labyrinth labyrinth, boolean closeAfter) {
 		MVertex vertex = getVertex(labyrinth.getGraph());
 		if (labyrinth.isOpened(vertex, MLabyrinth.Directions.NORTH)){
+			if (closeAfter && labyrinth.isOpenedDoor(vertex, MLabyrinth.Directions.NORTH)) {
+				labyrinth.closeDoor(labyrinth.getEdge(vertex, MLabyrinth.Directions.NORTH));
+			}
 			model.setY(model.getY()-1);
 			view.updateUI(model);
 		}
 	}
 
 	@Override
-	public void moveSouth(Labyrinth labyrinth) {
+	public void moveSouth(Labyrinth labyrinth, boolean closeAfter) {
 		MVertex vertex = getVertex(labyrinth.getGraph());
 		if (labyrinth.isOpened(vertex, MLabyrinth.Directions.SOUTH)){
+			if (closeAfter && labyrinth.isOpenedDoor(vertex, MLabyrinth.Directions.SOUTH)) {
+				labyrinth.closeDoor(labyrinth.getEdge(vertex, MLabyrinth.Directions.SOUTH));
+			}
 			model.setY(model.getY()+1);
 			view.updateUI(model);
 		}
@@ -73,16 +82,17 @@ public  class Sprite implements ISprite {
 			MVertex next = labyrinth.getGraph().getVertexByDir(vertex, dir);
 			if (labyrinth.getGraph().isConnected(vertex, next) && (next.getNbr()==vertex.getNbr()-1)){
 				move(labyrinth, dir);
+				return;
 			}
 		}
 	}
 
 	private void move(Labyrinth labyrinth, Directions dir) {
 		switch (dir){
-		case NORTH: moveNorth(labyrinth); break;
-		case SOUTH: moveSouth(labyrinth); break;
-		case EAST: moveEast(labyrinth); break;
-		case WEST: moveWest(labyrinth); break;
+		case NORTH: moveNorth(labyrinth, false); break;
+		case SOUTH: moveSouth(labyrinth, false); break;
+		case EAST: moveEast(labyrinth, false); break;
+		case WEST: moveWest(labyrinth, false); break;
 		}
 	}
 

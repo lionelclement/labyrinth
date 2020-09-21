@@ -11,29 +11,26 @@ import org.jgrapht.graph.SimpleGraph;
 import fr.ubordeaux.ao.labyrinth.model.MLabyrinth.Directions;
 
 public class MGraph extends SimpleGraph<MVertex, MEdge> {
-	/**
-	 * 
-	 */
-	//private static final long serialVersionUID = 8000209457349786157L;
-	Random random = new Random();
+
+	private static Random random = new Random();
 
 	public MGraph(Class<? extends MEdge> edgeClass) {
 		super(edgeClass);
 	}
 
-	public MVertex getVertexByXY(int x, int y){
+	public MVertex getVertexByXY(int x, int y) {
 		Iterator<MVertex> iterator = vertexSet().iterator();
-		while (iterator.hasNext()){
+		while (iterator.hasNext()) {
 			MVertex v = iterator.next();
-			if ((v.getX() == x) && (v.getY()==y))
+			if ((v.getX() == x) && (v.getY() == y))
 				return v;
 		}
 		return null;
 	}
 
-	public MVertex getVertexByNbr(int nbr){
+	public MVertex getVertexByNbr(int nbr) {
 		Iterator<MVertex> iterator = vertexSet().iterator();
-		while (iterator.hasNext()){
+		while (iterator.hasNext()) {
 			MVertex v = iterator.next();
 			if (v.getNbr() == nbr)
 				return v;
@@ -41,54 +38,47 @@ public class MGraph extends SimpleGraph<MVertex, MEdge> {
 		return null;
 	}
 
-	public MVertex getVertexByDir(MVertex vertex, Directions dir)  {
+	public MVertex getVertexByDir(MVertex vertex, Directions dir) {
 		int x, y;
-		if (vertex==null) {
+		if (vertex == null) {
 			return null;
-/*			try {
-				throw new Exception("");
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-*/
-			}
+		}
 
-			
 		x = vertex.getX();
 		y = vertex.getY();
-		switch(dir){
+		switch (dir) {
 		case NORTH:
-			return getVertexByXY(x, y-1);
+			return getVertexByXY(x, y - 1);
 		case SOUTH:
-			return getVertexByXY(x, y+1);
+			return getVertexByXY(x, y + 1);
 		case EAST:
-			return getVertexByXY(x+1, y);
+			return getVertexByXY(x + 1, y);
 		case WEST:
-			return getVertexByXY(x-1, y);
+			return getVertexByXY(x - 1, y);
 		}
 		return null;
 	}
 
 	public boolean doesntExist(MVertex vertex, Directions dir) {
-		return getVertexByDir(vertex, dir)==null;
+		return getVertexByDir(vertex, dir) == null;
 	}
 
-	public MEdge randomEdge(){
+	public MEdge randomEdge() {
 		MEdge result = null;
 		int index = random.nextInt(edgeSet().size());
-		Iterator<MEdge> iterator = edgeSet().iterator();;
-		while(iterator.hasNext() && index--!=0){
+		Iterator<MEdge> iterator = edgeSet().iterator();
+		while (iterator.hasNext() && index-- != 0) {
 			result = iterator.next();
 		}
 		return result;
 	}
 
-	public MVertex randomVertex(){
+	public MVertex randomVertex() {
 		MVertex result = null;
 		int index = random.nextInt(vertexSet().size());
-		Iterator<MVertex> iterator = vertexSet().iterator();;
-		while(iterator.hasNext() && index--!=0){
+		Iterator<MVertex> iterator = vertexSet().iterator();
+		;
+		while (iterator.hasNext() && index-- != 0) {
 			result = iterator.next();
 		}
 		return result;
@@ -104,7 +94,7 @@ public class MGraph extends SimpleGraph<MVertex, MEdge> {
 	}
 
 	public void toDot() {
-		try{
+		try {
 			BufferedWriter out = null;
 			FileWriter fstream = new FileWriter("./graph.dot", false);
 			out = new BufferedWriter(fstream);
@@ -115,8 +105,7 @@ public class MGraph extends SimpleGraph<MVertex, MEdge> {
 				out.write(edge.dotString());
 			out.write("}\n");
 			out.close();
-		}
-		catch(IOException exception){
+		} catch (IOException exception) {
 
 		}
 	}

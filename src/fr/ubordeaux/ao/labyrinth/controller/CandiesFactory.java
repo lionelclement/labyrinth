@@ -1,6 +1,6 @@
 package fr.ubordeaux.ao.labyrinth.controller;
 
-public class CandiesFactory extends SpriteFactory {
+public class CandiesFactory implements ISpriteFactory {
 
 	public CandiesFactory() {
 		super();

@@ -1,7 +1,6 @@
-package fr.ubordeaux.ao.labyrinth.view;
+	package fr.ubordeaux.ao.labyrinth.view;
 
 import fr.ubordeaux.ao.labyrinth.model.MISprite;
-import fr.ubordeaux.ao.labyrinth.model.MSprite;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.TranslateTransition;

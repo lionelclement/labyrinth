@@ -8,9 +8,9 @@ import fr.ubordeaux.ao.labyrinth.model.MLabyrinth;
 public  class Sprites implements ISprites {
 
 	protected List<ISprite> sprites;
-	private final SpriteFactory factory;
+	private final ISpriteFactory factory;
 
-	protected Sprites(SpriteFactory spriteFactory){
+	protected Sprites(ISpriteFactory spriteFactory){
 		this.sprites = new ArrayList<ISprite>();
 		this.factory = spriteFactory;
 	}

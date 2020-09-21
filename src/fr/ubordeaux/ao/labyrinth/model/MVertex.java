@@ -7,6 +7,8 @@ public class MVertex implements Comparable<MVertex> {
 	private int x, y;
 	private String label;
 	private Text text; // pour déboguer;
+	private boolean flag;
+	private int nbr;
 
 	public Text getText() {
 		return text;
@@ -15,9 +17,6 @@ public class MVertex implements Comparable<MVertex> {
 	public void setText(Text text) {
 		this.text = text;
 	}
-
-	private boolean flag;
-	private int nbr;
 
 	public MVertex(int x, int y, int nbr) {
 		this.x=x;

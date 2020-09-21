@@ -1,8 +1,8 @@
 package fr.ubordeaux.ao.labyrinth.model;
 
-public class MCandy extends MSprite {
+public class MDoor extends MSprite {
 
-	public MCandy(){
+	public MDoor() {
 		super();
 	}
 

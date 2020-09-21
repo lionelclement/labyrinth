@@ -16,7 +16,7 @@ public class VBadBoy extends VSprite {
 		File file = new File(BADBOY_FILE);
 		InputStream inputStream = new FileInputStream(file);
 		this.initImage(new Image(inputStream));
-		this.initSpeed(500);
+		this.initSpeed(250);
  	}
 
 }

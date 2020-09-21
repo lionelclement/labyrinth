@@ -1,14 +1,13 @@
 package fr.ubordeaux.ao.labyrinth.controller;
 
-//import fr.ubordeaux.ao.labyrinth.model.MLabyrinth;
 import javafx.scene.Node;
 
 public interface ISprite {
 	
-	void moveEast(Labyrinth labyrinth);
-	void moveWest(Labyrinth labyrinth);
-	void moveNorth(Labyrinth labyrinth);
-	void moveSouth(Labyrinth labyrinth);
+	void moveEast(Labyrinth labyrinth, boolean closeAfter);
+	void moveWest(Labyrinth labyrinth, boolean closeAfter);
+	void moveNorth(Labyrinth labyrinth, boolean closeAfter);
+	void moveSouth(Labyrinth labyrinth, boolean closeAfter);
 	void move(int x, int y);
 	void moveManhattan(Labyrinth labyrinth);
 	void remove();

@@ -5,10 +5,6 @@ public abstract class MSprite implements MISprite {
 	private int x, y, oldX, oldY;
 
 	protected MSprite(){
-		//this.x = x;
-		//this.y = y;
-		//this.oldX = x;
-		//this.oldY = y;
 	}
 
 	public int getOldX() {
