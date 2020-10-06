@@ -17,14 +17,14 @@ import javafx.util.Duration;
 public class MainController {
 
 	private static MainController instance;
-	private static final int WIDTH = 15;
-	private static final int HEIGHT = 15;
-	private static final long BADBOYS_SPEED = 25; // % speed badboys 0 to 100
+	private static final int WIDTH = 16;
+	private static final int HEIGHT = 16;
+	private static final long BADBOYS_SPEED = 35; // % speed badboys 0 to 100
 	private static final int NB_BADBOYS = 3; // # badBoys
 	private static final int NB_OPENDOOR = 40;
 	private static final int NB_CLOSEDOOR = 0;
 	private static final int NB_CANDIES = 3;
-	private static final int MILLIS = 350;
+	private static final int MILLIS = 450;
 	private static final String[] SOUND_FILES = { "src/sounds/Tr-3_stac_mf1_A#3.wav", "src/sounds/Water Bowl 05A.wav",
 			"src/sounds/Water Bowl 01A.wav" };
 

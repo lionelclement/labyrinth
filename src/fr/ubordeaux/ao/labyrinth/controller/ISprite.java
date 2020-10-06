@@ -1,5 +1,7 @@
 package fr.ubordeaux.ao.labyrinth.controller;
 
+import fr.ubordeaux.ao.labyrinth.model.MISprite;
+import fr.ubordeaux.ao.labyrinth.view.VISprite;
 import javafx.scene.Node;
 
 public interface ISprite {
